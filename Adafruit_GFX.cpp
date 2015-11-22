@@ -439,18 +439,18 @@ void Adafruit_GFX::drawChar(int16_t x, int16_t y, unsigned char c,
 
   if((x >= _width)            || // Clip right
      (y >= _height)           || // Clip bottom
-     ((x + 6 * size - 1) < 0) || // Clip left
+     ((x + 4 * size - 1) < 0) || // Clip left
      ((y + 8 * size - 1) < 0))   // Clip top
     return;
 
   if(!_cp437 && (c >= 176)) c++; // Handle 'classic' charset behavior
 
-  for (int8_t i=0; i<6; i++ ) {
+  for (int8_t i=0; i<4; i++ ) {
     uint8_t line;
-    if (i == 5) 
+    if (i == 3) 
       line = 0x0;
     else 
-      line = pgm_read_byte(font+(c*5)+i);
+      line = pgm_read_byte(font+(c*3)+i);
     for (int8_t j = 0; j<8; j++) {
       if (line & 0x1) {
         if (size == 1) // default size
