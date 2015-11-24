@@ -11,7 +11,7 @@
 #endif
 
 #if 1
-#include "font3x6.h"
+#include "font3x7.h"
 #else
 #include "font5x7.h"
 #endif
