@@ -32,7 +32,7 @@ POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include "Adafruit_GFX.h"
-#include "glcdfont.c"
+#include "glcdfont.h"
 #ifdef __AVR__
  #include <avr/pgmspace.h>
 #elif defined(ESP8266)
@@ -422,7 +422,7 @@ void Adafruit_GFX::write(uint8_t c) {
     // skip em
   } else {
     drawChar(cursor_x, cursor_y, c, textcolor, textbgcolor, textsize);
-    cursor_x += textsize*4;
+    cursor_x += textsize*(FONTWIDTH+1);
     if (wrap && (cursor_x > (_width - textsize*4))) {
       cursor_y += textsize*8;
       cursor_x = 0;
@@ -439,18 +439,18 @@ void Adafruit_GFX::drawChar(int16_t x, int16_t y, unsigned char c,
 
   if((x >= _width)            || // Clip right
      (y >= _height)           || // Clip bottom
-     ((x + 4 * size - 1) < 0) || // Clip left
+     ((x + (FONTWIDTH+1) * size - 1) < 0) || // Clip left
      ((y + 8 * size - 1) < 0))   // Clip top
     return;
 
   if(!_cp437 && (c >= 176)) c++; // Handle 'classic' charset behavior
 
-  for (int8_t i=0; i<4; i++ ) {
+  for (int8_t i=0; i<=FONTWIDTH; i++ ) {
     uint8_t line;
-    if (i == 3) 
+    if (i == FONTWIDTH) 
       line = 0x0;
     else 
-      line = pgm_read_byte(font+(c*3)+i);
+      line = pgm_read_byte(font+(c*FONTWIDTH)+i);
     for (int8_t j = 0; j<8; j++) {
       if (line & 0x1) {
         if (size == 1) // default size

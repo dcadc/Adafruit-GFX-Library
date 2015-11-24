@@ -1,21 +1,15 @@
-#ifndef FONT5X7_H
-#define FONT5X7_H
-
-#ifdef __AVR__
- #include <avr/io.h>
- #include <avr/pgmspace.h>
-#elif defined(ESP8266)
- #include <pgmspace.h>
-#else
- #define PROGMEM
-#endif
-
+#ifndef FONT3x6_H
+#define FONT3x6_H
 
 // "Tom Thumb" font originally designed by Robey Pointer
 // hacked to work with the Adafruit graphics drivers by
 // Sean McLemon, 2015.
 //
 // original link: http://robey.lag.net/2010/01/23/tiny-monospace-font.html
+
+
+// font is three characters wide
+#define FONTWIDTH 3
 
 static const unsigned char  font[] PROGMEM = {
   0x7C,0x44,0x7C, // 0x00
