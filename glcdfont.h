@@ -11,6 +11,8 @@
 #endif
 
 #if 1
+#include "font3x7_iso8859-2.h"
+#elif 1
 #include "font3x7.h"
 #else
 #include "font5x7.h"
